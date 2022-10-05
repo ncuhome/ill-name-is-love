@@ -12,12 +12,12 @@ public class MoveNum : MonoBehaviour
         Text = transform.GetComponent<TextMeshProUGUI>();
         // TxtCurrentTime = GetComponent<TextMeshPro> ();
     }
-
+   
 
     // Update is called once per frame
     void Update()
     {
-        if (Move.isMove == false && LimitScope.wall == false)
+        
             Text.text = Move.num.ToString();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LimitScope : MonoBehaviour
+public class LimitScope2 : MonoBehaviour
 {
     [Header("获得需要限制运动范围的物体")]
     [SerializeField]
@@ -26,8 +26,10 @@ public class LimitScope : MonoBehaviour
     [SerializeField]
     private float limit_Z;
 
-    public static bool wall=false;
-
+    public static bool wall_W = false;
+    public static bool wall_A = false;
+    public static bool wall_S = false;
+    public static bool wall_D = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,29 +39,33 @@ public class LimitScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (limitX < transform1.position.x  || limitZ < transform1.position.z  || limit_Z > transform1.position.z || limit_X > transform1.position.x)
+        if (limitX < transform1.position.x + 1)
         {
-            wall = true;
-            Vector3 temp = transform1.position;
-            if (temp.z > limitZ)
-            {
-                temp.z = limitZ;
-            }
-            if (temp.z < limit_Z)
-            {
-                temp.z = limit_Z;
-            }
-            if (temp.x > limitX)
-            {
-                temp.x = limitX;
-            }
-            if (temp.x < limit_X)
-            {
-                temp.x = limit_X;
-            }
-            transform1.position = temp;
+            wall_W = true;
         }
         else
-            wall = false;
+            wall_W = false;
+
+        if (limit_X > transform1.position.x - 1)
+        {
+            wall_S = true;
+        }
+        else
+            wall_S = false;
+
+        if (limitZ < transform1.position.z + 1)
+        {
+            wall_A = true;
+        }
+        else
+            wall_A = false;
+
+        if (limit_Z > transform1.position.z - 1)
+        {
+            wall_D = true;
+        }
+        else
+            wall_D = false;
+
     }
 }
