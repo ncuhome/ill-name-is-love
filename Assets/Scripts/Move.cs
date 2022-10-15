@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour
 {
@@ -8,13 +9,35 @@ public class Move : MonoBehaviour
     public static bool isMove = false;
     private int direction = 0;
     public static int num = 0;
+    public static bool Death=false;
 
     //1为w，2为a，-1为s，-2为d
     void Start()
     {
-        
-   }
+        Death = false;
+        num = 0;
+        isMove = false;
+    }
 
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("销毁" + this.gameObject.name);
+            Destroy(this.gameObject);
+            Death = true;
+        }
+        if(other.gameObject.name =="Next")
+        {
+            Debug.Log("下一关" );
+            Destroy(this.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+
+    }
+
+  
     // Update is called once per frame
     void Update()
     {
@@ -92,5 +115,7 @@ public class Move : MonoBehaviour
             timer = 0;
             isMove = false;
         }
+
+
     }
 }

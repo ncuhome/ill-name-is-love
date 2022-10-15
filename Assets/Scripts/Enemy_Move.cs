@@ -16,71 +16,91 @@ public class Enemy_Move : MonoBehaviour
     }
 
     public Path[] path = new Path[0];
-    public int Id = 1;
-    private float timer = 0;
+    public int Id = 0;
+    private float timer = 0f;
     public int moveTimes = 0;
+    public static bool IsMove =false;
+    Path p ;
+
     // Start is called before the first frame update
     void Start()
     {
+        IsMove = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Path p = path[Id];
-        
-        while (Id < path.Length)
+        if (Id < path.Length)
         {
-            p = path[Id];
-            moveTimes = p.MoveTimes;
-            
-            while (moveTimes > 0)
+            if (moveTimes == 0) 
             {
-                //当移动的时间大于0时让物体向下一个点移动
-                if (Move.isMove && timer < 1 )
+                p = path[Id];
+                moveTimes = p.MoveTimes;
+            }
+            if (moveTimes > 0)
+            {
+                //当移动的次数大于0时让物体向下一个点移动
+                if (Move.isMove && timer < 1)
                 {
-                    switch (p.direction)
-                    {
-                        case 1:
-                            this.transform.Translate(Time.deltaTime, 0, 0);
-                            timer += Time.deltaTime;
-                            break;
-                        case 2:
-                            this.transform.Translate(0, 0, Time.deltaTime);
-                            timer += Time.deltaTime;
-                            break;
-                        case -1:
-                            this.transform.Translate(-Time.deltaTime, 0, 0);
-                            timer += Time.deltaTime;
-                            break;
-                        case -2:
-                            this.transform.Translate(0, 0, -Time.deltaTime);
-                            timer += Time.deltaTime;
-                            break;
-                        default:
-                            break;
-                    }
+                    IsMove = true;
                 }
-                else if (timer > 1)
+                 else if (timer > 1)
                 {
+                    IsMove = false;
                     timer = 0;
-                    moveTimes--;
+                    --moveTimes;
                 }
-            } 
-            Id++;
-            
+
+            }
+            if (moveTimes == 0)
+            {
+                Id++;
+            }
         }
-       
-            
-        for(;Id>path.Length/2;Id--)
+
+        //倒叙赋值
+        if (Id == path.Length)
         {
-            path[0] = path[Id-1];         
-            path[0].direction = - path[0].direction;        
-            path[Id-1] = path[path.Length - Id +1 ];   
-            path[Id-1].direction = - path[Id-1].direction;  
-            path[path.Length - Id+1] = path[0];
+            for (Id--; Id > 0; Id--)
+            {
+                path[Id].direction = -path[Id].direction;
+            }
+            for (int i=0; i<path.Length/2; i++)
+            {
+                path[0] = path[i];
+                path[i] = path[path.Length - 1 - i];
+                path[path.Length - 1 - i] = path[i];
+            }
+            Id = 1;
         }
-        Id = 1; 
+
+        //运动
+        if (IsMove == true)
+        {
+            switch (p.direction)
+            {
+                case 1:
+                    this.transform.Translate(Time.deltaTime, 0, 0);
+                    timer += Time.deltaTime;
+                    break;
+                case 2:
+                    this.transform.Translate(0, 0, Time.deltaTime);
+                    timer += Time.deltaTime;
+                    break;
+                case -1:
+                    this.transform.Translate(-Time.deltaTime, 0, 0);
+                    timer += Time.deltaTime;
+                    break;
+                case -2:
+                    this.transform.Translate(0, 0, -Time.deltaTime);
+                    timer += Time.deltaTime;
+                    break;
+                default:
+                    break;
+            } 
+        }
+
        
     }
 }

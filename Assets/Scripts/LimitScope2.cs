@@ -33,7 +33,10 @@ public class LimitScope2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        wall_W = false;
+        wall_A = false;
+        wall_S = false;
+        wall_D = false;
     }
 
     // Update is called once per frame
