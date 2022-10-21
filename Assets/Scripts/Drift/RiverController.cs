@@ -5,28 +5,60 @@ using UnityEngine;
 
 public class RiverController : MonoBehaviour
 {
-    public Transform boat;
-    public BuoyancyEffector2D effector2D;
+    public static RiverController instance;
+
+    public BuoyancyEffector2D [] effector2D;
     public float[] level;
 
-    public int levelIndex = 0;
+    public int[] levelIndex;
+
+    private void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }    
+    }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Up"))
+        int key = InputHandler.instance.HandleJoyStickInput();
+        HeroRiverChange(key);
+    }
+
+    private void HeroRiverChange(int key)
+    {
+        switch (key)
         {
-            if (levelIndex > 0)
-            {
-                levelIndex--;
-            }
+            case 1:
+                if (levelIndex[0] > 0)
+                {
+                    levelIndex[0]--;
+                }
+                break;
+            case -1:
+                if (levelIndex[0] < level.Length - 1)
+                {
+                    levelIndex[0]++;
+                }
+                break;
+            default:
+                break;
         }
-        else if (Input.GetButtonDown("Down"))
+        effector2D[0].surfaceLevel = level[levelIndex[0]];
+    }
+
+    public void MoveAnother(int boat)
+    {
+        if (levelIndex[boat] > 0)
         {
-            if (levelIndex < level.Length - 1)
-            {
-                levelIndex++;
-            }
+            levelIndex[boat]--;
+            return;
         }
-        effector2D.surfaceLevel = level[levelIndex];
+        if (levelIndex[boat] < level.Length - 1)
+        {
+            levelIndex[boat]++;
+            return;
+        }
     }
 }
