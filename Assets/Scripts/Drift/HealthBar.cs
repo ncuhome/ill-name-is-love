@@ -1,33 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Image[] hearts;
-
+    public static HealthBar instance;
+    public int maxHealth = 3;
+    
     private int currentHealth;
-    private Image[] sprites;
-    // private Color defaultColor;
-    private Color hightlightColor = new Color(1f, 0.1075269f, 0f, 1);
+    private Image[] images;
+    private Color defaultColor;
 
     void Start()
     {
-        sprites = GetComponentsInChildren<Image>();
-        // defaultColor = sprites[0].color;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        images = GetComponentsInChildren<Image>();
+        currentHealth = maxHealth;
+
+        defaultColor = images[0].color;
     }
 
     void Update()
     {
-        for (int i = 0; i < sprites.Length; i++)
+        for (int i = 0; i < images.Length; i++)
         {
             if (i < currentHealth)
             {       
-                sprites[i].color = hightlightColor;
+                images[i].color = defaultColor;
             }
             else
             {
-                sprites[i].color = Color.white;
+                images[i].color = Color.white;
             }
+        }
+    }
+
+    public void DecreaseHeart()
+    {
+        currentHealth--;
+        if (currentHealth == 0 && !GameManager.instance.isEnd)
+        {
+            GameManager.instance.EndGame(false);
         }
     }
 }
