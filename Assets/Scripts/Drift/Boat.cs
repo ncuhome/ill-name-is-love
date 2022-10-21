@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    public RiverController riverController;
-    public HealthBar healthBar;
+    public bool isMainBoat;
+    public int riverIndex;
     public float endY = -5f;
     public float zBuffer = 1.5f;
+    public Material mat;
 
+    public Health health;
     private float startY = 0;
     private float startZ = 0;
     private Vector3 pos;
@@ -18,7 +20,9 @@ public class Boat : MonoBehaviour
     {
         pos = transform.position;
         startY = pos.y;
-        startZ = pos.z;   
+        startZ = pos.z;
+        health = GetComponent<Health>();
+        SetBoatColorA(1);
     }
 
     // Update is called once per frame
@@ -31,16 +35,10 @@ public class Boat : MonoBehaviour
         transform.position = pos;
     }
 
-    // private void OnCollisionEnter(Collision other)
-    // {
-    //     if (other.gameObject.tag == "Enemy")
-    //     {
-    //         riverController.MoveAnother();
-    //     }    
-    //     if (other.gameObject.tag == "HealthBar")
-    //     {
-    //         riverController.MoveAnother();
-    //         healthBar.
-    //     }
-    // }
+    public void SetBoatColorA(float num)
+    {
+        Color t = mat.color;
+        t.a = num;
+        mat.color = t;
+    }
 }
