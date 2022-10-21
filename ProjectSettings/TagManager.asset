@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Wind
+  - Stone
+  - Enemy2
   layers:
   - Default
   - TransparentFX
@@ -11,10 +15,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Enemy2
+  - PausePanel
   - 
   - 
   - 
@@ -38,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Boat
+    uniqueID: 1297530083
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

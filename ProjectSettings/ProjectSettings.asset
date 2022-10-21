@@ -862,7 +862,13 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -876,11 +882,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: d2fe1829-d6a6-43ea-875e-44dfb3ab8682
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: ill-name-is-love
+  organizationId: mygoddess007700
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
