@@ -11,4 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DriftScene.unity
     guid: 4822e3570dd8add43a4790048e281f10
+    path: Assets/OutdoorsScene.unity
+    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+  - enabled: 1
+    path: Assets/Scenes/First.unity
+    guid: b8f151987e1594a4cb57ae8fbf7a7559
+  - enabled: 1
+    path: Assets/Scenes/Second.unity
+    guid: 98e6fd67b4c405347903ad002611e39f
   m_configObjects: {}
