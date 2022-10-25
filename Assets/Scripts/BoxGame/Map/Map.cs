@@ -184,7 +184,7 @@ public class Map : MonoBehaviour
                 }
             }
         }
-        Debug.Log(sameNums);
+        // Debug.Log(sameNums);
         if (sameNums != 0)
         {
             Warrior [] newWarriors = new Warrior[warriors.Length - sameNums];
