@@ -1,6 +1,8 @@
+using System.Collections;
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Direction
 {
@@ -11,216 +13,318 @@ public enum Direction
     Down
 }
 
+[Serializable]
+//创建一个类获取移动的移动方向和移动次数
+public class Path
+{
+    public Direction direction = Direction.Idle;//移动方向
+    public int MoveTimes;  //从上个点到该点所需的移动次数
+}
+
 public class Map : MonoBehaviour
 {
     [Header("地图相关文件")]
-    public TextAsset mapStone; //记录石头
-    public TextAsset mapCharactor; //记录Tile内元素
+    public TextAsset map; //记录石头
 
-    [Header("地图和人物预制件脚本")]
-    public MapTile mapTile; //地图Tilemap信息
+    [Header("人物脚本")]
     public Hero hero; //男主信息
     public Ghost [] ghosts; //鬼魂信息
+    public Thief [] thiefs; //鬼魂信息
     public Warrior [] warriors; //兵马俑信息
 
-    [Header("人物相当于Anchor的出生点与起始点位置")]
-    public Vector3 startLocalPoint;
-    public Vector3 endLocalPoint;
-
-    [Header("地图块信息")]
-    public MapTile[,] mapTiles;
-
-    [Header("地图元素信息")]
-    //将地图石头与人物位置二维信息压缩成一维
-    public string mapStoneLine;
-    public string mapCharactorLine;
+    [Header("终点位置")]
+    // public Vector2 startLocalPoint;
+    public Vector2 endLocalPoint;
 
     [Header("其它地图信息")]
     public int width;
     public int height;
-    public Vector3 leftAndUpLocalPoint; //地图左上角基准点坐标
+    public string [,] charactor;
+    // public string [,] newCharactor;
+
+    public bool isMove = false;
+
+    private Direction direction;
 
     void Start()
     {
-        ReadMapStone();
-        ReadMapCharactor();
-        LoadStone();
-        LoadCharactor();
+        charactor = new string[height, width];
+        // newCharactor = new string[height, width];
+        ReadMap();
     }
-
-    /// <summary>
-    /// 从文件获取地图内石头位置，读取到一位数组中去
-    /// </summary>
-    private void ReadMapStone()
+    
+    private void FixedUpdate()
     {
-        string mapStoneText = mapStone.text;
-        string[] lines = mapStoneText.Split('\n');
-        string[] tileNums = lines[0].Split(' ');
-
-        height = lines.Length;
-        width = tileNums.Length;
-
-        using (StringReader sr = new StringReader(mapStoneText))
+        if (!isMove)
         {
-            string line;
-            for (int j = 0; j < height; j++)
+            if (InputManager.instance.GetDirection() != Direction.Idle)
             {
-                line = sr.ReadLine();
-                for (int i = 0; i < width; i++)
-                {
-                    tileNums = line.Split(' ');
-                    mapStoneLine += tileNums[i];
-                }
+                direction = InputManager.instance.GetDirection();
+                isMove = true;
+                StartCoroutine(MakeNotMove(hero.TIME_SET + 2));
+            }
+        }
+        else
+        {
+            hero.HeroFixedUpdate(this, direction);
+            for (int i = 0; i < ghosts.Length; i++)
+            {
+                ghosts[i].GhostFixedUpdate(this, direction);
+            }
+            for (int i = 0; i < warriors.Length; i++)
+            {
+                warriors[i].WarriorFixedUpdate(this, direction);
             }
         }
     }
 
     /// <summary>
-    /// 从文件获取地图内各人物位置，读取到一位数组中去
+    /// 从文件获取地图内各人物与石头位置
+    /// 空地为0，石头为1，男主为2，女主为3，女鬼为4，盗贼为5，兵马俑为6，是字符
     /// </summary>
-    private void ReadMapCharactor()
+    private void ReadMap()
     {
-        string mapCharactorText = mapCharactor.text;
-        string[] lines = mapCharactorText.Split('\n');
-        string[] tileNums = lines[0].Split(' ');
-
-        height = lines.Length;
-        width = tileNums.Length;
-
-        using (StringReader sr = new StringReader(mapCharactorText))
+        using (StringReader sr = new StringReader(map.text))
         {
+            sr.ReadLine();
+            sr.ReadLine();
             string line;
-            for (int j = 0; j < height; j++)
+            for (int i = 0; i < height; i++)
             {
                 line = sr.ReadLine();
-                for (int i = 0; i < width; i++)
+                for (int j = 0; j < width; j++)
                 {
-                    tileNums = line.Split(' ');
-                    mapCharactorLine += tileNums[i];
+                    string[] tiles = line.Split(' ');
+                    charactor[i, j] = tiles[j];
                 }
             }
         }
     }
 
-    // private void ReadMapStartAndEndPoint()
-    // {
-    //     using (StringReader sr = new StringReader(mapStartAndEndPoint.text))
-    //     {
-    //         string line;
-    //         string [] param;
-    //         line = sr.ReadLine();
-    //         param = line.Split(' ');
-
-    //         startLocalPoint = new Vector2(Convert.ToInt32(param[0]), Convert.ToInt32(param[1]));
-
-    //         line = sr.ReadLine();
-    //         param = line.Split(' ');
-    //         endLocalPoint = new Vector2(Convert.ToInt32(param[0]), Convert.ToInt32(param[1]));
-    //     }
-    // }
-
-    //TODO: 动态生成石头：四选一并保存信息到map里面
-    private void LoadStone()
+    IEnumerator MakeNotMove(int times)
     {
-        //地图贴图信息
-        // Sprite [] mapSprites = Resources.LoadAll<Sprite>(mapSpritesPath);
-        //地图位置信息
-        // Vector2 [,] mapLocalPostions = new Vector2[width, height];
-        //地图左上角LocalPosition
-        // leftAndUpLocalPoint = new Vector2((int)-width / 2, (int)height / 2);
-        // mapTiles = new MapTile[width, height];
+        for (int i = 0; i < times; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
 
-        //填充人物起始点和地图终点
-        // startLocalPoint.x = leftAndUpLocalPoint.x + (startLocalPoint.x - 1);
-        // startLocalPoint.y = leftAndUpLocalPoint.y - (startLocalPoint.y - 1);
-        // endLocalPoint.x = leftAndUpLocalPoint.x + (endLocalPoint.x - 1);
-        // endLocalPoint.y = leftAndUpLocalPoint.y - (endLocalPoint.y - 1);
-
-        //填充贴图相对于Anchor的位置的同时生成地图的同时存储小地图脚本信息
-        // Vector2 temp = leftAndUpLocalPoint; 
-        // MapTile tMapTile;
-        // for (int j = 0; j < height; j++)
-        // {
-        //     temp.x = leftAndUpLocalPoint.x;
-        //     for (int i = 0; i < width; i++)
-        //     {
-        //         //填充位置
-        //         mapLocalPostions[i, j] = temp;
-        //         //生成地图
-        //         tMapTile = Instantiate<MapTile>(mapTile);
-        //         tMapTile.transform.SetParent(this.transform);
-        //         //让子地图脚本完善自身信息与位置（信息包括x, y, 贴图, 碰撞体字符）
-        //         tMapTile.SetMapTile((int)temp.x, (int)temp.y, ref mapSprites[j * width + i]);
-        //         //存储小地图脚本信息
-        //         mapTiles[i, j] = tMapTile;
-
-        //         temp.x++;
-        //     }
-        //     temp.y--;
-        // }
+        CharactorTransformXY();
+        CheckoutHeroDie();
+        CheckoutWarriorsDie();
+        CheckWin();
+        isMove = false;
     }
 
-
-    //TODO: 动态生成人物元素并保存信息到map里面
-    private void LoadCharactor()
+    private void CheckWin()
     {
-        // if (this.gameObject.name == "LeftMap")
-        // {
-        //     Hero tHero = Instantiate<Hero>(leftHero);
-        //     tHero.transform.SetParent(this.transform);
-        //     tHero.SetHero(startLocalPoint, endLocalPoint, HeroId.LeftHero);
-        // }
-        // if (this.gameObject.name == "RightMap")
-        // {
-        //     Hero tHero = Instantiate<Hero>(rightHero);
-        //     tHero.transform.SetParent(this.transform);
-        //     tHero.SetHero(startLocalPoint, endLocalPoint, HeroId.RightHero);
-        // }  
+        if (hero.x == endLocalPoint.x && hero.y == endLocalPoint.y)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
-    //TODO: 判断是否撞墙
-    public bool WillAgainstTheWall(Direction direction, Vector2 heroLocalPositon)
+    private void CharactorTransformXY()
     {
-        // int index = 0;
-        // switch (direction)
+        hero.TransformXY();
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            ghosts[i].TransformXY();
+        }
+        // for (int i = 0; i < thiefs.Length; i++)
         // {
-        //     case Direction.Idle:
-        //         return false;
-        //     case Direction.Up:
-        //         index = Convert.ToInt32((heroLocalPositon.x - leftAndUpLocalPoint.x) + (leftAndUpLocalPoint.y - heroLocalPositon.y) * width - width);
-        //         break;
-        //     case Direction.Down:
-        //         index = Convert.ToInt32((heroLocalPositon.x - leftAndUpLocalPoint.x) + (leftAndUpLocalPoint.y - heroLocalPositon.y) * width + width);
-        //         break;
-        //     case Direction.Left:
-        //         index = Convert.ToInt32((heroLocalPositon.x - leftAndUpLocalPoint.x) + (leftAndUpLocalPoint.y - heroLocalPositon.y) * width - 1);
-        //         break;
-        //     case Direction.Right:
-        //         index = Convert.ToInt32((heroLocalPositon.x - leftAndUpLocalPoint.x) + (leftAndUpLocalPoint.y - heroLocalPositon.y) * width + 1);
-        //         break;
+        //     thief
         // }
-        
-        // if (mapCollisionLine[index] == 'H')
-        // {
-        //     return true;
-        // }
-        // if (mapCollisionLine[index] == '_')
-        // {
-        //     return false;
-        // }
-        
+        for (int i = 0; i < warriors.Length; i++)
+        {
+            warriors[i].TransformXY();
+        }
+    }
+
+    private void CheckoutHeroDie()
+    {
+        for (int i = 0; i < warriors.Length; i++)
+        {
+            if (hero.x + 1 == warriors[i].x && hero.y == warriors[i].y)
+            {
+                BoxGameManager.instance.HeroDie();
+            }
+            if (hero.x - 1 == warriors[i].x && hero.y == warriors[i].y)
+            {
+                BoxGameManager.instance.HeroDie();
+            }
+            if (hero.x == warriors[i].x && hero.y + 1 == warriors[i].y)
+            {
+                BoxGameManager.instance.HeroDie();
+            }
+            if (hero.x == warriors[i].x && hero.y - 1 == warriors[i].y)
+            {
+                BoxGameManager.instance.HeroDie();
+            }
+        }
+    }
+
+    //TODO: 改用hash表
+    private void CheckoutWarriorsDie()
+    {
+        int [] temp = new int[warriors.Length];
+        int sameNums = 0;
+        for (int i = 0; i < warriors.Length; i++)
+        {
+            for (int j = 0; j < warriors.Length; j++)
+            {
+                if (i == j)
+                {
+                    continue;
+                }
+                if (warriors[i].x == warriors[j].x && warriors[i].y == warriors[j].y)
+                {
+                    temp[sameNums] = i;
+                    sameNums++;
+                    break;
+                }
+            }
+        }
+        Debug.Log(sameNums);
+        if (sameNums != 0)
+        {
+            Warrior [] newWarriors = new Warrior[warriors.Length - sameNums];
+            int index = 0;
+            for (int i = 0, j = 0; i < warriors.Length; i++)
+            {
+                if (i == temp[index])
+                {
+                    index++;
+                    continue;
+                }
+                newWarriors[j] = warriors[i];
+                j++;
+            }
+            for (int i = 0; i < sameNums; i++)
+            {
+                Destroy(warriors[temp[i]].gameObject);
+            }
+            warriors = newWarriors;
+        }
+    }
+
+    //TODO: 判断是否撞墙并填充新地图
+    public bool WillAgainstTheWall(Direction direction, int x, int y, ref int nextX, ref int nextY, string index)
+    {
+        int newX = x;
+        int newY = y;
+        switch (direction)
+        {
+            case Direction.Up:
+                newX--;
+                break;
+            case Direction.Down:
+                newX++;
+                break;
+            case Direction.Left:
+                newY--;
+                break;
+            case Direction.Right:
+                newY++;
+                break;
+        }
+        if (newX < 0 || newY < 0 || newX >= height || newY >= width)
+        {
+            return true;
+        }
+        switch (charactor[newX, newY])
+        {
+            case "1":
+                return true;
+            case "4":
+                return true;
+            default:
+                break;
+        }
+        nextX = newX;
+        nextY = newY;
         return false;
     }
 
-    //TODO: 判断是否撞鬼
-    public bool WillAgainstTheGhost(Direction direction, Vector2 heroLocalPositon)
+    //TODO: 判断是否撞墙并填充新地图
+    public bool WillAgainstTheWall(Direction direction, int x, int y, string index)
     {
+        int newX = x;
+        int newY = y;
+        switch (direction)
+        {
+            case Direction.Up:
+                newX--;
+                break;
+            case Direction.Down:
+                newX++;
+                break;
+            case Direction.Left:
+                newY--;
+                break;
+            case Direction.Right:
+                newY++;
+                break;
+        }
+        if (newX < 0 || newY < 0 || newX >= height || newY >= width)
+        {
+            return true;
+        }
+        switch (charactor[newX, newY])
+        {
+            case "1":
+                return true;
+            case "4":
+                return true;
+            default:
+                break;
+        }
         return false;
     }
 
-    //TODO: 判断是否撞兵马俑
-    public bool WillAgainstTheWarrior(Direction direction, Vector2 heroLocalPositon)
+    //TODO: 判断主角是否撞鬼
+    public bool HeroWillAgainstTheGhost(Direction direction)
     {
+        int dX = hero.x;
+        int dY = hero.y;
+        switch (direction)
+        {
+            case Direction.Up:
+                dX--;
+                break;
+            case Direction.Down:
+                dX++;
+                break;
+            case Direction.Left:
+                dY--;
+                break;
+            case Direction.Right:
+                dY++;
+                break;
+        }
+        if (dX < 0 || dY < 0 || dX >= height || dY >= width)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            if (dX == ghosts[i].x && dY == ghosts[i].y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool HaveTheWarrior(int x, int y)
+    {
+        for (int i = 0; i < warriors.Length; i++)
+        {
+            if (x == warriors[i].x && y == warriors[i].y)
+            {
+                return true;
+            }
+        }
         return false;
     }
 }
