@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BoxScene1.unity
     guid: b63ab3f5441cb5141b16798a23c856bf
+  - enabled: 1
+    path: Assets/Scenes/BoxScene2.unity
+    guid: 2eb2055b7aa6b1749a1611c844a2560a
+  - enabled: 1
+    path: Assets/Scenes/BoxScene3.unity
+    guid: e174b1652740306439af594218ca6e28
+  - enabled: 1
+    path: Assets/Scenes/BoxScene4.unity
+    guid: 38fe1b52024b41d4894d0d426ccbc396
   m_configObjects: {}
