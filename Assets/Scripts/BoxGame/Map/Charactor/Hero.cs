@@ -30,7 +30,7 @@ public class Hero : MonoBehaviour
             return;
         }
 
-        if (map.WillAgainstTheWall(dir, x, y, ref nextX, ref nextY, "2"))
+        if (map.WillAgainstTheWall(dir, x, y, ref nextX, ref nextY))
         {
             return;
         }

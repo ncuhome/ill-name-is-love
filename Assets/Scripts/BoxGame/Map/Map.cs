@@ -119,7 +119,7 @@ public class Map : MonoBehaviour
     {
         if (hero.x == endLocalPoint.x && hero.y == endLocalPoint.y)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            BoxSceneManager.instance.Win();
         }
     }
 
@@ -144,21 +144,13 @@ public class Map : MonoBehaviour
     {
         for (int i = 0; i < warriors.Length; i++)
         {
-            if (hero.x + 1 == warriors[i].x && hero.y == warriors[i].y)
+            if ((hero.x + 1 == warriors[i].x && hero.y == warriors[i].y)
+            || (hero.x - 1 == warriors[i].x && hero.y == warriors[i].y)
+            || (hero.x == warriors[i].x && hero.y + 1 == warriors[i].y)
+            || (hero.x == warriors[i].x && hero.y - 1 == warriors[i].y)
+            || (hero.x == warriors[i].x && hero.y == warriors[i].y))
             {
-                BoxGameManager.instance.HeroDie();
-            }
-            if (hero.x - 1 == warriors[i].x && hero.y == warriors[i].y)
-            {
-                BoxGameManager.instance.HeroDie();
-            }
-            if (hero.x == warriors[i].x && hero.y + 1 == warriors[i].y)
-            {
-                BoxGameManager.instance.HeroDie();
-            }
-            if (hero.x == warriors[i].x && hero.y - 1 == warriors[i].y)
-            {
-                BoxGameManager.instance.HeroDie();
+                BoxSceneManager.instance.HeroDie();
             }
         }
     }
@@ -207,8 +199,8 @@ public class Map : MonoBehaviour
         }
     }
 
-    //TODO: 判断是否撞墙并填充新地图
-    public bool WillAgainstTheWall(Direction direction, int x, int y, ref int nextX, ref int nextY, string index)
+    //判断是否撞墙（或鬼）
+    public bool WillAgainstTheWall(Direction direction, int x, int y, ref int nextX, ref int nextY)
     {
         int newX = x;
         int newY = y;
@@ -245,8 +237,8 @@ public class Map : MonoBehaviour
         return false;
     }
 
-    //TODO: 判断是否撞墙并填充新地图
-    public bool WillAgainstTheWall(Direction direction, int x, int y, string index)
+    //判断是否撞墙（或鬼）
+    public bool WillAgainstTheWall(Direction direction, int x, int y)
     {
         int newX = x;
         int newY = y;
@@ -281,7 +273,7 @@ public class Map : MonoBehaviour
         return false;
     }
 
-    //TODO: 判断主角是否撞鬼
+    //判断鬼是否要移动
     public bool HeroWillAgainstTheGhost(Direction direction)
     {
         int dX = hero.x;
@@ -316,6 +308,7 @@ public class Map : MonoBehaviour
         return false;
     }
 
+    //判断鬼是否满足停止移动的一个条件
     public bool HaveTheWarrior(int x, int y)
     {
         for (int i = 0; i < warriors.Length; i++)

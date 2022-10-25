@@ -39,37 +39,82 @@ public class Warrior : MonoBehaviour
             return;
         }
 
-        if (map.WillAgainstTheWall(dir, map.hero.x, map.hero.y, "2"))
+        if (map.WillAgainstTheWall(dir, map.hero.x, map.hero.y))
         {
             return;
         }
 
-        if (!CheckPath(dir))
-        {
-            return;
-        }
+        // if (!CheckPath(dir))
+        // {
+        //     return;
+        // }
 
         pos.x = 0;
         pos.y = 0;
-        switch (dir)
+
+        if (map.WillAgainstTheWall(paths[pathIndex].direction, x, y))
+        {
+            Direction tDir = paths[pathIndex].direction;
+            while (paths[pathIndex].direction == tDir)
+            {
+                pathCurTimes--;
+                if (pathCurTimes == 0)
+                {
+                    pathIndex = (pathIndex + 1) % paths.Length;
+                    pathCurTimes = paths[pathIndex].MoveTimes;
+                }
+            }
+        }
+        
+        switch (paths[pathIndex].direction)
         {
             case Direction.Up:
+                nextX--;
                 pos.x = defaultSpeed / TIME_SET;
                 timer = TIME_SET;
                 break;
             case Direction.Down:
+                nextX++;
                 pos.x = -defaultSpeed / TIME_SET;
                 timer = TIME_SET;
                 break;
             case Direction.Left:
+                nextY--;
                 pos.y = defaultSpeed / TIME_SET;
                 timer = TIME_SET;
                 break;
             case Direction.Right:
+                nextY++;
                 pos.y = -defaultSpeed / TIME_SET;
                 timer = TIME_SET;
                 break;
         }
+        pathCurTimes--;
+        if (pathCurTimes == 0)
+        {
+            pathIndex = (pathIndex + 1) % paths.Length;
+            pathCurTimes = paths[pathIndex].MoveTimes;
+        }
+        
+        // switch (dir)
+        // {
+        //     case Direction.Up:
+        //         pos.x = defaultSpeed / TIME_SET;
+        //         timer = TIME_SET;
+        //         break;
+        //     case Direction.Down:
+        //         pos.x = -defaultSpeed / TIME_SET;
+        //         timer = TIME_SET;
+        //         break;
+        //     case Direction.Left:
+        //         pos.y = defaultSpeed / TIME_SET;
+        //         timer = TIME_SET;
+        //         break;
+        //     case Direction.Right:
+        //         pos.y = -defaultSpeed / TIME_SET;
+        //         timer = TIME_SET;
+        //         break;
+        // }
     }
 
     public void Move(Vector3 pos)
@@ -84,33 +129,33 @@ public class Warrior : MonoBehaviour
         y = nextY;
     }
 
-    private bool CheckPath(Direction dir)
-    {
-        if (dir == paths[pathIndex].direction)
-        {
-            pathCurTimes--;
-            if (pathCurTimes == 0)
-            {
-                pathIndex = (pathIndex + 1) % paths.Length;
-                pathCurTimes = paths[pathIndex].MoveTimes;
-            }
-            switch (dir)
-            {
-                case Direction.Up:
-                    nextX--;
-                    break;
-                case Direction.Down:
-                    nextX++;
-                    break;
-                case Direction.Left:
-                    nextY--;
-                    break;
-                case Direction.Right:
-                    nextY++;
-                    break;
-            }
-            return true;
-        }
-        return false;
-    }
+    // private bool CheckPath(Direction dir)
+    // {
+    //     if (dir == paths[pathIndex].direction)
+    //     {
+    //         pathCurTimes--;
+    //         if (pathCurTimes == 0)
+    //         {
+    //             pathIndex = (pathIndex + 1) % paths.Length;
+    //             pathCurTimes = paths[pathIndex].MoveTimes;
+    //         }
+    //         switch (dir)
+    //         {
+    //             case Direction.Up:
+    //                 nextX--;
+    //                 break;
+    //             case Direction.Down:
+    //                 nextX++;
+    //                 break;
+    //             case Direction.Left:
+    //                 nextY--;
+    //                 break;
+    //             case Direction.Right:
+    //                 nextY++;
+    //                 break;
+    //         }
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }

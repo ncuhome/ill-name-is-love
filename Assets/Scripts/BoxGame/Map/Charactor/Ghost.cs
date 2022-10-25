@@ -49,7 +49,7 @@ public class Ghost : MonoBehaviour
         }
         // Debug.Log(map.charactor[x + dX, y + dY]);
 
-        if (map.WillAgainstTheWall(dir, map.hero.x, map.hero.y, "2"))
+        if (map.WillAgainstTheWall(dir, map.hero.x, map.hero.y))
         {
             // Debug.Log(dir + "x" + map.hero.x + "y" + map.hero.y);
             return;
