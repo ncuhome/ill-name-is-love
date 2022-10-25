@@ -16,7 +16,6 @@ public class Ghost : MonoBehaviour
     [Header("Movement Timer")]
     public int timer; //剩余移动物理帧数
 
-    private bool ghostWillMove;
     private Vector2 pos; //人物下一个FixedUpdate要走到的地方，pos.x表示x轴移动距离，pos.y表示z轴移动距离
     private int dX;
     private int dY;

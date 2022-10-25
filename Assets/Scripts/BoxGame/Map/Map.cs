@@ -31,6 +31,7 @@ public class Map : MonoBehaviour
     public Ghost [] ghosts; //鬼魂信息
     public Thief [] thiefs; //鬼魂信息
     public Warrior [] warriors; //兵马俑信息
+    public Tiger [] tigers; //老虎信息
 
     [Header("终点位置")]
     // public Vector2 startLocalPoint;
@@ -75,6 +76,14 @@ public class Map : MonoBehaviour
             {
                 warriors[i].WarriorFixedUpdate(this, direction);
             }
+            for (int i = 0; i < thiefs.Length; i++)
+            {
+                thiefs[i].ThiefFixedUpdate(this, direction);
+            }
+            for (int i = 0; i < tigers.Length; i++)
+            {
+                tigers[i].TigerFixedUpdate(this, direction);
+            }
         }
     }
 
@@ -111,6 +120,7 @@ public class Map : MonoBehaviour
         CharactorTransformXY();
         CheckoutHeroDie();
         CheckoutWarriorsDie();
+        CheckoutThiefsDie();
         CheckWin();
         isMove = false;
     }
@@ -130,13 +140,17 @@ public class Map : MonoBehaviour
         {
             ghosts[i].TransformXY();
         }
-        // for (int i = 0; i < thiefs.Length; i++)
-        // {
-        //     thief
-        // }
+        for (int i = 0; i < thiefs.Length; i++)
+        {
+            thiefs[i].TransformXY();
+        }
         for (int i = 0; i < warriors.Length; i++)
         {
             warriors[i].TransformXY();
+        }
+        for (int i = 0; i < tigers.Length; i++)
+        {
+            tigers[i].TransformXY();
         }
     }
 
@@ -149,6 +163,22 @@ public class Map : MonoBehaviour
             || (hero.x == warriors[i].x && hero.y + 1 == warriors[i].y)
             || (hero.x == warriors[i].x && hero.y - 1 == warriors[i].y)
             || (hero.x == warriors[i].x && hero.y == warriors[i].y))
+            {
+                BoxSceneManager.instance.HeroDie();
+            }
+        }
+
+        for (int i = 0; i < thiefs.Length; i++)
+        {
+            if (hero.x == thiefs[i].x && hero.y == thiefs[i].y)
+            {
+                BoxSceneManager.instance.HeroDie();
+            }
+        }
+
+        for (int i = 0; i < tigers.Length; i++)
+        {
+            if (hero.x == tigers[i].x && hero.y == tigers[i].y)
             {
                 BoxSceneManager.instance.HeroDie();
             }
@@ -199,6 +229,92 @@ public class Map : MonoBehaviour
         }
     }
 
+    //TODO: 改用hash表
+    private void CheckoutThiefsDie()
+    {
+        int [] temp1 = new int[thiefs.Length];
+        int sameNums1 = 0;
+        int [] temp2 = new int[tigers.Length];
+        int sameNums2 = 0;
+        for (int i = 0; i < tigers.Length; i++)
+        {
+            for (int j = 0; j < thiefs.Length; j++)
+            {
+                if (tigers[i].x == thiefs[j].x && tigers[i].y == thiefs[j].y)
+                {
+                    bool hasSame1 = false;
+                    bool hasSame2 = false;
+                    for (int t = 0; t < sameNums1; t++)
+                    {
+                        if (temp1[t] == i)
+                        {
+                            hasSame1 = true;
+                            break;
+                        }
+                    }
+                    if (!hasSame1)
+                    {
+                        temp1[sameNums1] = i;
+                        sameNums1++;
+                    }
+                    for (int t = 0; t < sameNums2; t++)
+                    {
+                        if (temp2[t] == j)
+                        {
+                            hasSame2 = true;
+                            break;
+                        }
+                    }
+                    if (!hasSame2)
+                    {
+                        temp2[sameNums2] = j;
+                        sameNums2++;
+                    }
+                }
+            }
+        }
+        if (sameNums1 != 0)
+        {
+            Tiger [] newTigers = new Tiger[tigers.Length - sameNums1];
+            int index = 0;
+            for (int i = 0, j = 0; i < tigers.Length; i++)
+            {
+                if (i == temp1[index])
+                {
+                    index++;
+                    continue;
+                }
+                newTigers[j] = tigers[i];
+                j++;
+            }
+            for (int i = 0; i < sameNums1; i++)
+            {
+                Destroy(tigers[temp1[i]].gameObject);
+            }
+            tigers = newTigers;
+        }
+        if (sameNums2 != 0)
+        {
+            Thief [] newThiefs = new Thief[thiefs.Length - sameNums2];
+            int index = 0;
+            for (int i = 0, j = 0; i < thiefs.Length; i++)
+            {
+                if (i == temp2[index])
+                {
+                    index++;
+                    continue;
+                }
+                newThiefs[j] = thiefs[i];
+                j++;
+            }
+            for (int i = 0; i < sameNums2; i++)
+            {
+                Destroy(tigers[temp2[i]].gameObject);
+            }
+            thiefs = newThiefs;
+        }
+    }
+
     //判断是否撞墙（或鬼）
     public bool WillAgainstTheWall(Direction direction, int x, int y, ref int nextX, ref int nextY)
     {
@@ -223,14 +339,16 @@ public class Map : MonoBehaviour
         {
             return true;
         }
-        switch (charactor[newX, newY])
+        if (charactor[newX, newY] == "1")
         {
-            case "1":
+            return true;
+        }
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            if (newX == ghosts[i].x && newY == ghosts[i].y)
+            {
                 return true;
-            case "4":
-                return true;
-            default:
-                break;
+            }
         }
         nextX = newX;
         nextY = newY;
@@ -261,14 +379,29 @@ public class Map : MonoBehaviour
         {
             return true;
         }
-        switch (charactor[newX, newY])
+        if (charactor[newX, newY] == "1")
         {
-            case "1":
+            return true;
+        }
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            if (newX == ghosts[i].x && newY == ghosts[i].y)
+            {
                 return true;
-            case "4":
+            }
+        }
+        return false;
+    }
+
+    //判断老虎是否经过土匪
+    public bool AgainstTheThief(Direction direction, int x, int y)
+    {
+        for (int i = 0; i < thiefs.Length; i++)
+        {
+            if (x == thiefs[i].nextX && y == thiefs[i].nextY)
+            {
                 return true;
-            default:
-                break;
+            }
         }
         return false;
     }

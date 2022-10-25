@@ -20,7 +20,6 @@ public class Warrior : MonoBehaviour
 
     private int pathIndex = 0;
     private int pathCurTimes = 0;
-    private bool warriorWillMove;
     private Vector2 pos; //人物下一个FixedUpdate要走到的地方，pos.x表示x轴移动距离，pos.y表示z轴移动距离
 
     private void Start()
