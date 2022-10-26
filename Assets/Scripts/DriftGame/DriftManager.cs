@@ -8,6 +8,7 @@ public class DriftManager : MonoBehaviour
     public static DriftManager instance;
     public bool isEnd = false;
     public int mapSceneIndex = 3;
+    public int driftScene5Index = 7;
 
     private FadeManager fade;
 
@@ -43,6 +44,36 @@ public class DriftManager : MonoBehaviour
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
                 // isFirstFrame = true;
                 operation.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 8:
+                AsyncOperation operation2 = SceneManager.LoadSceneAsync(mapSceneIndex);
+                operation2.allowSceneActivation = false;
+                while (operation2.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation2.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 13:
+                AsyncOperation operation3 = SceneManager.LoadSceneAsync(driftScene5Index);
+                operation3.allowSceneActivation = false;
+                while (operation3.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation3.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
         }

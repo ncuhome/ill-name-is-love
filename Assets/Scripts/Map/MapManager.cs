@@ -7,6 +7,7 @@ public class MapManager : MonoBehaviour
 {
     public float waitTime = 2f;
     public int driftScene2Index = 4;
+    public int dialogueSceneIndex = 1;
 
     private FadeManager fade;
 
@@ -39,6 +40,36 @@ public class MapManager : MonoBehaviour
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
                 // isFirstFrame = true;
                 operation.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 9:
+                AsyncOperation operation2 = SceneManager.LoadSceneAsync(driftScene2Index);
+                operation2.allowSceneActivation = false;
+                while (operation2.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation2.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 17:
+                AsyncOperation operation3 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation3.allowSceneActivation = false;
+                while (operation3.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation3.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
         }

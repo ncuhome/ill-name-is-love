@@ -20,6 +20,9 @@ public class DialogueManager : MonoBehaviour
     public DialogueCamera dialogueCamera;
     public float textSpeed;
     public string currentReadyDialogue;
+    public int driftScene3Index = 5;
+    public int driftScene4Index = 6;
+    public int mapSceneIndex = 3;
 
     public Sprite cg1;
     public Sprite cg2;
@@ -80,8 +83,21 @@ public class DialogueManager : MonoBehaviour
                 dialogueCamera.Loaded();
                 currentReadyDialogue = "Level5";
                 break;
-            // case 3:
-
+            case 10:
+                dialogueTextPanel.SetActive(true);
+                dialogueCamera.Loaded();
+                currentReadyDialogue = "Level10";
+                break;
+            case 14:
+                dialogueTextPanel.SetActive(true);
+                dialogueCamera.Loaded();
+                currentReadyDialogue = "Level14";
+                break;
+            case 18:
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg2;
+                break;
         }
     }
 
@@ -232,6 +248,83 @@ public class DialogueManager : MonoBehaviour
                 // isFirstFrame = true;
                 operation.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 5:
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 7:
+                AsyncOperation operation2 = SceneManager.LoadSceneAsync(driftScene3Index);
+                operation2.allowSceneActivation = false;
+                while (operation2.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation2.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 10:
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 12:
+                AsyncOperation operation3 = SceneManager.LoadSceneAsync(driftScene4Index);
+                operation3.allowSceneActivation = false;
+                while (operation3.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation3.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 14:
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 16:
+                AsyncOperation operation4 = SceneManager.LoadSceneAsync(mapSceneIndex);
+                operation4.allowSceneActivation = false;
+                while (operation4.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation4.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 18:
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
                 break;
         }
     }
