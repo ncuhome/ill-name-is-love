@@ -51,17 +51,13 @@ public class Warrior : MonoBehaviour
         pos.x = 0;
         pos.y = 0;
 
-        if (map.WillAgainstTheWall(paths[pathIndex].direction, x, y))
+        while (map.WillAgainstTheWall(paths[pathIndex].direction, x, y))
         {
-            Direction tDir = paths[pathIndex].direction;
-            while (paths[pathIndex].direction == tDir)
+            pathCurTimes--;
+            if (pathCurTimes == 0)
             {
-                pathCurTimes--;
-                if (pathCurTimes == 0)
-                {
-                    pathIndex = (pathIndex + 1) % paths.Length;
-                    pathCurTimes = paths[pathIndex].MoveTimes;
-                }
+                pathIndex = (pathIndex + 1) % paths.Length;
+                pathCurTimes = paths[pathIndex].MoveTimes;
             }
         }
         

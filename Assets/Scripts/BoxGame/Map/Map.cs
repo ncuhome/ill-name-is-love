@@ -232,9 +232,9 @@ public class Map : MonoBehaviour
     //TODO: 改用hash表
     private void CheckoutThiefsDie()
     {
-        int [] temp1 = new int[thiefs.Length];
+        int [] temp1 = new int[tigers.Length];
         int sameNums1 = 0;
-        int [] temp2 = new int[tigers.Length];
+        int [] temp2 = new int[thiefs.Length];
         int sameNums2 = 0;
         for (int i = 0; i < tigers.Length; i++)
         {
@@ -309,7 +309,7 @@ public class Map : MonoBehaviour
             }
             for (int i = 0; i < sameNums2; i++)
             {
-                Destroy(tigers[temp2[i]].gameObject);
+                Destroy(thiefs[temp2[i]].gameObject);
             }
             thiefs = newThiefs;
         }
