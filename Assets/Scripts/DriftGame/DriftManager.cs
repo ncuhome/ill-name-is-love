@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class DriftManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static DriftManager instance;
     public bool isEnd = false;
     public GameObject panel;
 

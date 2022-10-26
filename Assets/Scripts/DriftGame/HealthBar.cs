@@ -42,9 +42,9 @@ public class HealthBar : MonoBehaviour
     public void DecreaseHeart()
     {
         currentHealth--;
-        if (currentHealth == 0 && !GameManager.instance.isEnd)
+        if (currentHealth == 0 && !DriftManager.instance.isEnd)
         {
-            GameManager.instance.EndGame(false);
+            DriftManager.instance.EndGame(false);
         }
     }
 }

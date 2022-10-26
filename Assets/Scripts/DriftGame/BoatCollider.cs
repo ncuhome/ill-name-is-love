@@ -12,9 +12,9 @@ public class BoatCollider : MonoBehaviour
         {
             if (other.gameObject.tag == "Home")
             {
-                if (!GameManager.instance.isEnd)
+                if (!DriftManager.instance.isEnd)
                 {
-                    GameManager.instance.EndGame(true);
+                    DriftManager.instance.EndGame(true);
                 }
             }
             if (other.gameObject.tag == "Enemy1" || other.gameObject.tag == "Enemy2")

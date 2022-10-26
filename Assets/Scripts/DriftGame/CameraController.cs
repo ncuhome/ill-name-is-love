@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
             {
                 if (target.position.x > 47f)
                 {
-                    GameManager.instance.EndGame(false);
+                    DriftManager.instance.EndGame(false);
                 }
                 return;
             }

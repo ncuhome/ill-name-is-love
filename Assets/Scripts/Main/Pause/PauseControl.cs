@@ -32,15 +32,19 @@ public class PauseControl : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        volumeObj = GlobalVolumeManager.instance.volumeObj;
         if (preEnumerator != null)
         {
             StopCoroutine(preEnumerator);
         }
         gameIsPaused = false;
         Time.timeScale = 1;
+        //下面这句会切换场景后会报错，但是找不到错误原因
         pauseMenu.SetActive(false);
         
+        if (volumeObj == null)
+        {
+            volumeObj = GlobalVolumeManager.instance.volumeObj;
+        }
         if (volumeObj != null)
         {
             var volume = volumeObj.GetComponent<Volume>();
@@ -58,10 +62,9 @@ public class PauseControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && SceneManager.GetActiveScene().buildIndex != 0)
         {
             gameIsPaused = !gameIsPaused;
-            Debug.Log(gameIsPaused);
             PauseGame();
         }
     }

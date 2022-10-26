@@ -44,6 +44,7 @@ public class Map : MonoBehaviour
     // public string [,] newCharactor;
 
     public bool isMove = false;
+    public bool isDieByThief = false;
 
     private Direction direction;
 
@@ -174,6 +175,11 @@ public class Map : MonoBehaviour
             {
                 BoxSceneManager.instance.HeroDie();
             }
+        }
+
+        if (isDieByThief)
+        {
+            BoxSceneManager.instance.HeroDie();
         }
 
         for (int i = 0; i < tigers.Length; i++)
@@ -389,6 +395,37 @@ public class Map : MonoBehaviour
             {
                 return true;
             }
+        }
+        return false;
+    }
+
+    //判断是否可能撞人
+    public bool WillAgainstTheHero(Direction direction, int x, int y)
+    {
+        int newX = x;
+        int newY = y;
+        switch (direction)
+        {
+            case Direction.Up:
+                newX--;
+                break;
+            case Direction.Down:
+                newX++;
+                break;
+            case Direction.Left:
+                newY--;
+                break;
+            case Direction.Right:
+                newY++;
+                break;
+        }
+        if (newX < 0 || newY < 0 || newX >= height || newY >= width)
+        {
+            return false;
+        }
+        if (hero.x == newX && hero.y == newY)
+        {
+            return true;
         }
         return false;
     }
