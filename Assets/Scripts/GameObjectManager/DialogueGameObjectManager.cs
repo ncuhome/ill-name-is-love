@@ -11,6 +11,10 @@ public class DialogueGameObjectManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (dialogueManager == null)
+        {
+            dialogueManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogueManager>();
+        }
     }
 
     #endregion;

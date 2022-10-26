@@ -23,12 +23,12 @@ public class SceneLoader : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("LevelIndex"))
         {
+            PlayerPrefs.SetInt("LevelIndex", 0);
             StaticData.levelIndex = PlayerPrefs.GetInt("LevelIndex");
-            Debug.Log(StaticData.levelIndex);
         }
         else
         {
-            PlayerPrefs.SetInt("LevelIndex", 1);
+            PlayerPrefs.SetInt("LevelIndex", 0);
         }
     }
 
@@ -83,7 +83,6 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadNextScene()
     {
-        Debug.Log("loadNextScene");
         startButtton.onClick.RemoveAllListeners();
         // continueButton.onClick.RemoveAllListeners();
         exitButton.onClick.RemoveAllListeners();
@@ -104,10 +103,10 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
 
-        operation.allowSceneActivation = true;
         fade.FadeIn(fadeDuration);
         StaticData.levelIndex = 1;
         PlayerPrefs.SetInt("SceneIndex", 1);
+        operation.allowSceneActivation = true;
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
     }
 }

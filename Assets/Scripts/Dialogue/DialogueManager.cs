@@ -11,11 +11,13 @@ public class DialogueManager : MonoBehaviour
     public GraphicUnlockManger graphicUnlockManger;
     public TextAsset inkAsset;
     public Image background;
-    public GameObject dialoguePanel;
+    public GameObject dialogueTextPanel;
+    public GameObject dialogueBackground;
     public TMP_Text boxName;
     public TMP_Text boxText;
     public Button skipBtn;
     public Button returnBtn;
+    public DialogueCamera dialogueCamera;
     public float textSpeed;
     public string currentReadyDialogue;
 
@@ -42,33 +44,54 @@ public class DialogueManager : MonoBehaviour
     private string currentWord;
     private string currentEvent;
     private float currentTextSpeed;
+    // private bool isFirstFrame = true;
 
-    private void Start()
+    private void Awake()
     {
-        skipBtn.interactable = true;
-        returnBtn.interactable = true;
+        SceneManager.sceneLoaded += OnSceneLoaded;    
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // skipBtn.interactable = true;
+        // returnBtn.interactable = true;
         
         // this.audioController = AudioController.instance;
         fade = FadeGameObjectManager.instance.fadeCanvas;
-        dialoguePanel.SetActive(false);
+        dialogueBackground.SetActive(false);
+        dialogueTextPanel.SetActive(false);
         currentTextSpeed = textSpeed;
         inkStroy = new Story(inkAsset.text);
 
+        Debug.Log("onsceneloaded" + StaticData.levelIndex);
+
         switch (StaticData.levelIndex)
         {
+            case 0:
+                break;
             case 1:
                 graphicUnlockManger.paintPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                // dialogueTextPanel.SetActive(true);
+                dialogueCamera.Loaded();
                 break;
-            case 2:
-                // this.audioController.PlayBgm(this.audioController.bgm03Clip);
-                this.background.sprite = cg1;
-                this.currentReadyDialogue = "Level2";
+            case 5:
+                dialogueTextPanel.SetActive(true);
+                dialogueCamera.Loaded();
+                currentReadyDialogue = "Level5";
                 break;
+            // case 3:
+
         }
     }
 
     private void Update()
     {
+        // if (isFirstFrame)
+        // {
+        //     isFirstFrame = false;
+        //     this.Start();
+        // }
         if (hasShownDialogue)
         {
             return;
@@ -112,7 +135,7 @@ public class DialogueManager : MonoBehaviour
     void StartDialogue(string path)
     {
         isInDialogue = true;
-        dialoguePanel.SetActive(true);
+        dialogueTextPanel.SetActive(true);
         inkStroy.ChoosePathString(path);
         if (!GetData(ref currentName, ref currentWord))
         {
@@ -124,18 +147,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void FinishDialogue()
+    public void FinishDialogue()
     {
-        if (currentReadyDialogue == "mirror")
-        {
-            dialoguePanel.SetActive(false);
-            hasShownDialogue = true;
-            EndScene();
-            return;
-        }
         isInDialogue = false;
-        dialoguePanel.SetActive(false);
         hasShownDialogue = true;
+        currentReadyDialogue = "";
+        EndScene();
     }
 
     bool GetData(ref string currentName, ref string currentWord)
@@ -202,8 +219,6 @@ public class DialogueManager : MonoBehaviour
         switch (StaticData.levelIndex)
         {
             case 2:
-                StaticData.levelIndex++;
-                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
                 AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
                 operation.allowSceneActivation = false;
                 while (operation.progress < 0.9f)
@@ -211,16 +226,13 @@ public class DialogueManager : MonoBehaviour
                     yield return null;
                 }
 
-                operation.allowSceneActivation = true;
                 fade.FadeIn(1f);
                 StaticData.levelIndex++;
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
         }
-
-        
-
-        
     }
 }

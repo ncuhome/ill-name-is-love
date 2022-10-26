@@ -85,6 +85,7 @@ public class GraphicUnlockManger : MonoBehaviour
                     case 2:
                         // this.audioController.PlayBgm(this.audioController.bgm03Clip);
                         dialogueManager.background.sprite = dialogueManager.cg1;
+                        dialogueManager.dialogueTextPanel.SetActive(true);
                         dialogueManager.currentReadyDialogue = "Level2";
                         break;
                     // case 7:
