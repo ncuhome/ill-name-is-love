@@ -5,5 +5,5 @@ using UnityEngine;
 public class StaticData : MonoBehaviour
 {
     // public static int dialogueIndex;
-    public static int levelIndex;
+    public static int levelIndex = 1;
 }

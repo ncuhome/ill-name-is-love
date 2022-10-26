@@ -5,14 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class RePlay : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject GameOver;
-
-    [SerializeField]
-    private GameObject NumCount;
     public void OnClick()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
 
     }
 

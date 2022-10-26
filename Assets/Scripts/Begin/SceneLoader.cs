@@ -28,7 +28,7 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetInt("LevelIndex", 0);
+            PlayerPrefs.SetInt("LevelIndex", 1);
         }
     }
 
@@ -47,6 +47,7 @@ public class SceneLoader : MonoBehaviour
 
     void ExitGame()
     {
+        Debug.Log("exit");
         exitManager.gameEnd = true;
     }
 
@@ -82,6 +83,7 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadNextScene()
     {
+        Debug.Log("loadNextScene");
         startButtton.onClick.RemoveAllListeners();
         // continueButton.onClick.RemoveAllListeners();
         exitButton.onClick.RemoveAllListeners();
