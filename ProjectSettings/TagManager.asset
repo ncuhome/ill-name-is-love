@@ -9,6 +9,7 @@ TagManager:
   - Wind
   - Stone
   - Enemy2
+  - FadeCanvas
   layers:
   - Default
   - TransparentFX
