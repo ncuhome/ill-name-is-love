@@ -130,7 +130,7 @@ public class Map : MonoBehaviour
     {
         if (hero.x == endLocalPoint.x && hero.y == endLocalPoint.y)
         {
-            BoxSceneManager.instance.Win();
+            BoxSceneManager.instance.EndGame();
         }
     }
 
@@ -165,7 +165,7 @@ public class Map : MonoBehaviour
             || (hero.x == warriors[i].x && hero.y - 1 == warriors[i].y)
             || (hero.x == warriors[i].x && hero.y == warriors[i].y))
             {
-                BoxSceneManager.instance.HeroDie();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 
@@ -173,20 +173,20 @@ public class Map : MonoBehaviour
         {
             if (hero.x == thiefs[i].x && hero.y == thiefs[i].y)
             {
-                BoxSceneManager.instance.HeroDie();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 
         if (isDieByThief)
         {
-            BoxSceneManager.instance.HeroDie();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         for (int i = 0; i < tigers.Length; i++)
         {
             if (hero.x == tigers[i].x && hero.y == tigers[i].y)
             {
-                BoxSceneManager.instance.HeroDie();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }

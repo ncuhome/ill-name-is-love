@@ -882,10 +882,12 @@ MonoBehaviour:
   driftScene3Index: 5
   driftScene4Index: 6
   mapSceneIndex: 3
+  boxScene1Index: 8
+  driftScene2Index: 4
   cg1: {fileID: 21300000, guid: 24a89b5ec6f53f241b69a428d5d12513, type: 3}
   cg2: {fileID: 21300000, guid: 3109212f83679094fb0abb97a9dea4a8, type: 3}
-  cg3: {fileID: 0}
-  cg4: {fileID: 0}
+  cg3: {fileID: 21300000, guid: a66e0a2abbb16de4b805caecdf1338cf, type: 3}
+  cg4: {fileID: 21300000, guid: 8976c5872031b5541a7473d341cd3640, type: 3}
   cg5: {fileID: 0}
   cg6: {fileID: 0}
   cg7: {fileID: 0}
@@ -1792,7 +1794,7 @@ GameObject:
   - component: {fileID: 1606086246}
   - component: {fileID: 1606086245}
   m_Layer: 0
-  m_Name: "cg\u6C34\u4E61\u8239\u8236"
+  m_Name: "\u5927\u5730\u56FE"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1839,7 +1841,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -9
-  m_Sprite: {fileID: 21300000, guid: a66e0a2abbb16de4b805caecdf1338cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7279b4895c7cf8d49bd7d2507036daeb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1858,9 +1860,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606086244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -1.43, y: 0.04, z: 0}
+  m_LocalScale: {x: 0.57, y: 0.57, z: 0.19}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -4632,8 +4634,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u597D\u60F3\u4F60\u554A\u6C34\u513F......"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5718b532f5ae77d47b3a52b1bbc2ca76, type: 2}
-  m_sharedMaterial: {fileID: 7287506476303099798, guid: 5718b532f5ae77d47b3a52b1bbc2ca76, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125af2c14ce9f8b4ba4cab409fe56434, type: 2}
+  m_sharedMaterial: {fileID: 1684796748137187748, guid: 125af2c14ce9f8b4ba4cab409fe56434, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4663,7 +4665,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

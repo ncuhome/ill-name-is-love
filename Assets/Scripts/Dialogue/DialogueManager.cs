@@ -23,6 +23,9 @@ public class DialogueManager : MonoBehaviour
     public int driftScene3Index = 5;
     public int driftScene4Index = 6;
     public int mapSceneIndex = 3;
+    public int boxScene1Index = 8;
+    public int driftScene2Index = 4;
+    public int boxScene4Index = 11;
 
     public Sprite cg1;
     public Sprite cg2;
@@ -96,23 +99,72 @@ public class DialogueManager : MonoBehaviour
                 currentReadyDialogue = "Level14";
                 break;
             case 18:
+                dialogueCamera.Loaded();
                 dialogueTextPanel.SetActive(true);
                 dialogueBackground.SetActive(true);
                 background.sprite = cg2;
                 currentReadyDialogue = "Level18";
+                break;
+            case 20:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg2;
+                currentReadyDialogue = "Level20";
+                break;
+            case 24:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg3;
+                currentReadyDialogue = "Level24";
+                break;
+            case 25:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg3;
+                currentReadyDialogue = "Level25";
+                break;
+            case 27:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg3;
+                currentReadyDialogue = "Level27";
+                break;
+            case 28:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg3;
+                currentReadyDialogue = "Level28";
+                break;
+            case 29:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg4;
+                currentReadyDialogue = "Level29";
+                break;
+            case 31:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg4;
+                currentReadyDialogue = "Level31";
+                break;
+            case 34:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueCamera.Loaded();
+                currentReadyDialogue = "Level34";
                 break;
         }
     }
 
     private void Update()
     {
-        if (currentReadyDialogue == "Level5")
-        {
-            Debug.Log("hasshowndialogue" + hasShownDialogue);
-            Debug.Log("isIndialogue" + isInDialogue);
-            Debug.Log("textFinished" + textFinished);
-            Debug.Log("currdialogue" + currentReadyDialogue);
-        }
         if (hasShownDialogue)
         {
             return;
@@ -204,6 +256,21 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Q":
                 boxName.text = "秋水";
+                break;
+            case "Z":
+                boxName.text = "老庄";
+                break;
+            case "X":
+                boxName.text = "小庄";
+                break;
+            case "A":
+                boxName.text = "阿孙";
+                break;
+            case "D":
+                boxName.text = "土匪头子";
+                break;
+            case "甲":
+                boxName.text = "土匪甲";
                 break;
             default:
                 boxName.text = currentName;
@@ -363,6 +430,132 @@ public class DialogueManager : MonoBehaviour
                 currentReadyDialogue = "";
                 StaticData.levelIndex++;
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 20:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation5 = SceneManager.LoadSceneAsync(boxScene1Index);
+                operation5.allowSceneActivation = false;
+                while (operation5.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation5.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 24:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation6 = SceneManager.LoadSceneAsync(driftScene2Index);
+                operation6.allowSceneActivation = false;
+                while (operation6.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation6.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 25:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation7 = SceneManager.LoadSceneAsync(driftScene4Index);
+                operation7.allowSceneActivation = false;
+                while (operation7.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation7.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 28:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation8 = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+                operation8.allowSceneActivation = false;
+                while (operation8.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation8.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 29:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 31:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation9 = SceneManager.LoadSceneAsync(driftScene3Index);
+                operation9.allowSceneActivation = false;
+                while (operation9.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation9.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 34:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation10 = SceneManager.LoadSceneAsync(boxScene4Index);
+                operation10.allowSceneActivation = false;
+                while (operation10.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation10.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
         }
     }

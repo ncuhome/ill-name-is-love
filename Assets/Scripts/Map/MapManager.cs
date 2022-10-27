@@ -72,6 +72,21 @@ public class MapManager : MonoBehaviour
                 operation3.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
+            case 33:
+                AsyncOperation operation4 = SceneManager.LoadSceneAsync(driftScene2Index);
+                operation4.allowSceneActivation = false;
+                while (operation4.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation4.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
         }
     }
 }
