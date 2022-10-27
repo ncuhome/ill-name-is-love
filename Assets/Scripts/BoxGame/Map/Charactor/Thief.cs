@@ -55,6 +55,37 @@ public class Thief : MonoBehaviour
             }
         }
         
+        if (map.WillAgainstTheHero(paths[pathIndex].direction, x, y))
+        {
+            switch (paths[pathIndex].direction)
+            {
+                case Direction.Up:
+                if (dir == Direction.Down)
+                {
+                    map.isDieByThief = true;
+                }
+                break;
+            case Direction.Down:
+                if (dir == Direction.Up)
+                {
+                    map.isDieByThief = true;
+                }
+                break;
+            case Direction.Left:
+                if (dir == Direction.Right)
+                {
+                    map.isDieByThief = true;
+                }
+                break;
+            case Direction.Right:
+                if (dir == Direction.Left)
+                {
+                    map.isDieByThief = true;
+                }
+                break;
+            }
+        }
+
         switch (paths[pathIndex].direction)
         {
             case Direction.Up:

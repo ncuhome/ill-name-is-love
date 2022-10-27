@@ -9,6 +9,10 @@ TagManager:
   - Wind
   - Stone
   - Enemy2
+  - FadeCanvas
+  - DialogueManager
+  - Enemy1
+  - Home
   layers:
   - Default
   - TransparentFX

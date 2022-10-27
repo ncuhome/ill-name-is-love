@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
@@ -42,9 +43,9 @@ public class HealthBar : MonoBehaviour
     public void DecreaseHeart()
     {
         currentHealth--;
-        if (currentHealth == 0 && !GameManager.instance.isEnd)
+        if (currentHealth == 0 && !DriftManager.instance.isEnd)
         {
-            GameManager.instance.EndGame(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
