@@ -80,6 +80,7 @@ public class GraphicUnlockManger : MonoBehaviour
                 paintPanel.SetActive(false);
                 StaticData.levelIndex++;
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                dialogueManager.hasShownDialogue = false;
                 switch (StaticData.levelIndex)
                 {
                     case 2:

@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DriftGame/DriftScene4.unity
     guid: 307603ffcc891184d81e079d0eebaf09
   - enabled: 1
+    path: Assets/Scenes/DriftGame/DriftScene5.unity
+    guid: b909cb16276a94a4a99af3eddc2c93d8
+  - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: 16777ed9b9ba7dd4e82c3840d345f194
   - enabled: 1
