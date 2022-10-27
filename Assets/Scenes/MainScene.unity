@@ -884,15 +884,19 @@ MonoBehaviour:
   mapSceneIndex: 3
   boxScene1Index: 8
   driftScene2Index: 4
+  boxScene4Index: 11
+  dialogueSceneIndex: 1
+  box_1SceneIndex: 13
   cg1: {fileID: 21300000, guid: 24a89b5ec6f53f241b69a428d5d12513, type: 3}
   cg2: {fileID: 21300000, guid: 3109212f83679094fb0abb97a9dea4a8, type: 3}
   cg3: {fileID: 21300000, guid: a66e0a2abbb16de4b805caecdf1338cf, type: 3}
   cg4: {fileID: 21300000, guid: 8976c5872031b5541a7473d341cd3640, type: 3}
-  cg5: {fileID: 0}
-  cg6: {fileID: 0}
-  cg7: {fileID: 0}
-  cg8: {fileID: 0}
-  cg9: {fileID: 0}
+  cg5: {fileID: 21300000, guid: 799dc7c4682b2fd4a881f224e66ad44e, type: 3}
+  cg6: {fileID: 21300000, guid: 445c63854e58e2b4fa7285eb4f9998bf, type: 3}
+  cg7: {fileID: 21300000, guid: 730fa6cd5c9c0f34f9bc1e6a93d7f2c0, type: 3}
+  cg8: {fileID: 21300000, guid: cf1d4ba16ada0b74d9d81774c4d34bad, type: 3}
+  cg9: {fileID: 21300000, guid: f31385bc7579efd44be94eab64056532, type: 3}
+  cg10: {fileID: 21300000, guid: 051624c57510fc642a94e3d6f754e39e, type: 3}
   hasShownDialogue: 0
 --- !u!1 &1045740361
 GameObject:

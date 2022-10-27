@@ -116,6 +116,21 @@ public class GraphicUnlockManger : MonoBehaviour
                         dialogueManager.dialogueBackground.SetActive(true);
                         dialogueManager.currentReadyDialogue = "Level31";
                         break;
+                    case 40:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.dialogueBackground.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level40";
+                        break;
+                    case 47:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.dialogueBackground.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level47";
+                        break;
+                    case 50:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.dialogueBackground.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level50";
+                        break;
                     
                 }
                 // NextLevel.SetActive(true);

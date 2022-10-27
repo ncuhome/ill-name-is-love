@@ -16,6 +16,8 @@ public class BoxSceneManager : MonoBehaviour
     public int dialogueSceneIndex = 1;
     public int boxScene5Index = 12;
     public int boxScene6Index = 13;
+    public int box_2SceneIndex = 15;
+    public int box_3SceneIndex = 16;
 
     private FadeManager fade;
 
@@ -111,6 +113,51 @@ public class BoxSceneManager : MonoBehaviour
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
                 // isFirstFrame = true;
                 operation5.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 42:
+                AsyncOperation operation6 = SceneManager.LoadSceneAsync(box_2SceneIndex);
+                operation6.allowSceneActivation = false;
+                while (operation6.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation6.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 43:
+                AsyncOperation operation7 = SceneManager.LoadSceneAsync(box_3SceneIndex);
+                operation7.allowSceneActivation = false;
+                while (operation7.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation7.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 44:
+                AsyncOperation operation8 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation8.allowSceneActivation = false;
+                while (operation8.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation8.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
         }

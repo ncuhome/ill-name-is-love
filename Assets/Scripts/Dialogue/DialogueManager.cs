@@ -26,6 +26,8 @@ public class DialogueManager : MonoBehaviour
     public int boxScene1Index = 8;
     public int driftScene2Index = 4;
     public int boxScene4Index = 11;
+    public int dialogueSceneIndex = 1;
+    public int box_1SceneIndex = 14;
 
     public Sprite cg1;
     public Sprite cg2;
@@ -36,6 +38,7 @@ public class DialogueManager : MonoBehaviour
     public Sprite cg7;
     public Sprite cg8;
     public Sprite cg9;
+    public Sprite cg10;
 
     private float typingTimer;
     private FadeManager fade;
@@ -159,6 +162,117 @@ public class DialogueManager : MonoBehaviour
                 dialogueTextPanel.SetActive(true);
                 dialogueCamera.Loaded();
                 currentReadyDialogue = "Level34";
+                break;
+            case 37:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueCamera.Loaded();
+                currentReadyDialogue = "Level37";
+                break;
+            case 38:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg4;
+                currentReadyDialogue = "Level38";
+                break;
+            case 40:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg1;
+                currentReadyDialogue = "Level40";
+                break;
+            case 41:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg4;
+                currentReadyDialogue = "Level41";
+                break;
+            case 45:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg4;
+                currentReadyDialogue = "Level45";
+                break;
+            case 47:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg4;
+                currentReadyDialogue = "Level47";
+                break;
+            case 48:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg6;
+                currentReadyDialogue = "Level48";
+                break;
+            case 50:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg1;
+                currentReadyDialogue = "Level50";
+                break;
+            case 51:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg7;
+                currentReadyDialogue = "Level51";
+                break;
+            case 52:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg8;
+                currentReadyDialogue = "Level52";
+                break;
+            case 53:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg7;
+                currentReadyDialogue = "Level53";
+                break;
+            case 54:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg8;
+                currentReadyDialogue = "Level54";
+                break;
+            case 55:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg7;
+                currentReadyDialogue = "Level55";
+                break;
+            case 56:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg8;
+                currentReadyDialogue = "Level56";
+                break;
+            case 57:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg9;
+                currentReadyDialogue = "Level57";
+                break;
+            case 58:
+                dialogueCamera.Loaded();
+                dialogueTextPanel.SetActive(true);
+                dialogueBackground.SetActive(true);
+                background.sprite = cg10;
+                currentReadyDialogue = "Level58";
                 break;
         }
     }
@@ -555,6 +669,270 @@ public class DialogueManager : MonoBehaviour
                 PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
                 // isFirstFrame = true;
                 operation10.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 37:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation11 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation11.allowSceneActivation = false;
+                while (operation11.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation11.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 38:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 40:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation12 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation12.allowSceneActivation = false;
+                while (operation12.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation12.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 41:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation13 = SceneManager.LoadSceneAsync(box_1SceneIndex);
+                operation13.allowSceneActivation = false;
+                while (operation13.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation13.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 45:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 47:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation14 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation14.allowSceneActivation = false;
+                while (operation14.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation14.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 48:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                fade.FadeIn(1f);
+                dialogueTextPanel.SetActive(false);
+                graphicUnlockManger.paintPanel.SetActive(true);
+                currentReadyDialogue = "";
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                break;
+            case 50:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation15 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation15.allowSceneActivation = false;
+                while (operation15.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation15.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 51:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation16 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation16.allowSceneActivation = false;
+                while (operation16.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation16.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 52:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation17 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation17.allowSceneActivation = false;
+                while (operation17.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation17.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 53:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation18 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation18.allowSceneActivation = false;
+                while (operation18.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation18.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 54:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation19 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation19.allowSceneActivation = false;
+                while (operation19.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation19.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 55:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation20 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation20.allowSceneActivation = false;
+                while (operation20.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation20.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 56:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation21 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation21.allowSceneActivation = false;
+                while (operation21.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation21.allowSceneActivation = true;
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
+                break;
+            case 57:
+                currentName = "";
+                currentWord = "";
+                boxName.text = "";
+                boxText.text = "";
+                AsyncOperation operation22 = SceneManager.LoadSceneAsync(dialogueSceneIndex);
+                operation22.allowSceneActivation = false;
+                while (operation22.progress < 0.9f)
+                {
+                    yield return null;
+                }
+
+                fade.FadeIn(1f);
+                StaticData.levelIndex++;
+                PlayerPrefs.SetInt("LevelIndex", StaticData.levelIndex);
+                // isFirstFrame = true;
+                operation22.allowSceneActivation = true;
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + sceneIndex);
                 break;
         }
