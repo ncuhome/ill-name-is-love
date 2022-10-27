@@ -82,6 +82,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueTextPanel.SetActive(true);
                 dialogueCamera.Loaded();
                 currentReadyDialogue = "Level5";
+                Debug.Log(currentReadyDialogue);
                 break;
             case 10:
                 dialogueTextPanel.SetActive(true);
