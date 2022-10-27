@@ -88,13 +88,29 @@ public class GraphicUnlockManger : MonoBehaviour
                         dialogueManager.dialogueTextPanel.SetActive(true);
                         dialogueManager.currentReadyDialogue = "Level2";
                         break;
+                    case 7:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level7";
+                        break;
                     // case 7:
                     //     // this.audioController.PlayBgm(this.audioController.bgm03Clip);
                     //     dialogueManager.background.sprite = dialogueManager.cg2;
                     //     dialogueManager.currentReadyDialogue = "Level7";
                     //     break;
-                    // case 12:
-
+                    case 12:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level12";
+                        break;
+                    case 16:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level16";
+                        break;
+                    case 20:
+                        dialogueManager.dialogueTextPanel.SetActive(true);
+                        dialogueManager.dialogueBackground.SetActive(true);
+                        dialogueManager.currentReadyDialogue = "Level20";
+                        break;
+                    
                 }
                 // NextLevel.SetActive(true);
             }

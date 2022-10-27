@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public float horizontalOffset = 1f;
     public float smoothTime = 0.05f;
+    public int driftScene2Index = 4;
 
     private void Start()
     {
@@ -22,12 +24,8 @@ public class CameraController : MonoBehaviour
     {
         if (target != null)
         {
-            if (transform.position.x > 43.5f)
+            if (transform.position.x > 43.5f && SceneManager.GetActiveScene().buildIndex != driftScene2Index)
             {
-                if (target.position.x > 47f)
-                {
-                    DriftManager.instance.EndGame(false);
-                }
                 return;
             }
             Vector3 targetPos = new Vector3(target.transform.position.x + horizontalOffset, transform.position.y, transform.position.z);
