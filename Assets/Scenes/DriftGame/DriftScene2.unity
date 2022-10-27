@@ -470,8 +470,8 @@ SpriteRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190725304}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1377,6 +1377,7 @@ MonoBehaviour:
   isEnd: 0
   mapSceneIndex: 3
   driftScene5Index: 7
+  driftScene2Index: 4
 --- !u!1 &472325943
 GameObject:
   m_ObjectHideFlags: 0
